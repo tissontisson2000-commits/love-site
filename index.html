@@ -2,99 +2,188 @@
 <html lang="ar">
 <head>
 <meta charset="UTF-8">
-<title>❤️ Happy Birthday</title>
+<title>❤️ روح قلبي</title>
 
 <style>
-body {
+body{
+  margin:0;
+  height:100vh;
+  overflow:hidden;
+  display:flex;
+  flex-direction:column;
+  justify-content:center;
+  align-items:center;
+  background: linear-gradient(120deg,#ff758c,#ff7eb3);
   font-family: Arial;
-  text-align: center;
-  background: linear-gradient(to right, #ff9a9e, #fad0c4);
-  color: white;
+  color:white;
+  text-align:center;
 }
 
-h1 {
-  margin-top: 30px;
-  font-size: 30px;
+.text{
+  font-size:28px;
+  font-weight:bold;
+  width:85%;
+  min-height:120px;
 }
 
-#typing {
-  font-size: 20px;
-  margin: 20px;
+.big{
+  font-size:75px;
+  font-weight:bold;
+  animation:pulse 1.5s infinite;
 }
 
-button {
-  padding: 12px 20px;
-  border: none;
-  background: #ff4d6d;
-  color: white;
-  border-radius: 10px;
-  cursor: pointer;
-  margin-top: 20px;
+.small{
+  font-size:22px;
+  margin-top:10px;
 }
 
-img {
-  width: 180px;
-  border-radius: 15px;
-  margin: 10px;
+.clock{
+  font-size:26px;
+  margin-top:10px;
+}
+
+input{
+  padding:10px;
+  border:none;
+  border-radius:10px;
+  text-align:center;
+}
+
+button{
+  margin-top:10px;
+  padding:10px 20px;
+  border:none;
+  border-radius:10px;
+  cursor:pointer;
+  background:white;
+  color:#ff4d6d;
+}
+
+/* انيميشن */
+@keyframes pulse{
+  0%{transform:scale(1);}
+  50%{transform:scale(1.2);}
+  100%{transform:scale(1);}
+}
+
+/* قلوب */
+.heart{
+  position:absolute;
+  animation: floatUp 5s linear infinite;
+}
+
+@keyframes floatUp{
+  0%{transform:translateY(100vh); opacity:1;}
+  100%{transform:translateY(-10vh); opacity:0;}
+}
+
+/* المفاجأة */
+#surpriseBox{
+  display:none;
+  margin-top:20px;
 }
 </style>
 </head>
 
 <body>
 
-<h1>Happy Birthday My Love ❤️</h1>
+<!-- 💌 الرسالة -->
+<div id="type" class="text"></div>
 
-<p id="typing"></p>
+<!-- ⏳ العداد -->
+<div id="days" class="big"></div>
+<div id="clock" class="small"></div>
 
-<h2 id="timer"></h2>
+<!-- ⏰ الساعة -->
+<div id="liveClock" class="clock"></div>
 
-<!-- صور -->
-<img src="https://via.placeholder.com/180">
-<img src="https://via.placeholder.com/180">
+<!-- 🔐 الباسورد -->
+<div>
+  <h3>اكتب تاريخ الميلاد لفتح المفاجأة ❤️</h3>
+  <input type="password" id="pass" placeholder="6/4/2009">
+  <button onclick="checkPass()">دخول</button>
+</div>
 
-<br>
+<!-- 🎁 المفاجأة -->
+<div id="surpriseBox">
+  <h1>بحبك اوي اوي اوي اوي ❤️🔥</h1>
+  <p>يا روح قلبي ربنا يخليكي ليا 💞</p>
+</div>
 
-<button onclick="surprise()">اضغطي هنا 🎁</button>
-
-<!-- موسيقى -->
+<!-- 🎵 موسيقى -->
 <audio autoplay loop>
-  <source src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3">
+  <source src="https://cdn.pixabay.com/download/audio/2022/03/22/audio_3b2b6c9f0f.mp3?filename=perfect-110397.mp3">
 </audio>
 
 <script>
 
-// ✍️ كتابة حرف حرف
-let text = "كل سنة وانتي احلى حاجة في حياتي ❤️";
+// 💌 رسالة حرف حرف
+let msg = "كل سنة وانتي طيبة يا روح قلبي 💞♥💍 كل سنة وانتي عيدي ينور عيني ربنا يديلك طولة العمر ويجعل يومي قبل يومك شهودة قلبي";
 let i = 0;
 
-function typeWriter() {
-  if (i < text.length) {
-    document.getElementById("typing").innerHTML += text.charAt(i);
+function typeWriter(){
+  if(i < msg.length){
+    document.getElementById("type").innerHTML += msg.charAt(i);
     i++;
-    setTimeout(typeWriter, 70);
+    setTimeout(typeWriter,70);
   }
 }
 typeWriter();
 
-// ⏳ العداد
-let startDate = new Date("2024-01-01"); // غير التاريخ ده
 
-function updateTimer() {
+// ⏳ العداد (ثابت)
+function update(){
+  let days = 434;
+
   let now = new Date();
-  let diff = now - startDate;
+  let hours = now.getHours();
+  let minutes = now.getMinutes();
+  let seconds = now.getSeconds();
 
-  let days = Math.floor(diff / (1000 * 60 * 60 * 24));
+  document.getElementById("days").innerHTML =
+  days + " يوم ❤️";
 
-  document.getElementById("timer").innerHTML =
-    "بقالنا مع بعض: " + days + " يوم ❤️";
+  document.getElementById("clock").innerHTML =
+  hours + " ساعة | " + minutes + " دقيقة | " + seconds + " ثانية";
 }
 
-setInterval(updateTimer, 1000);
+setInterval(update,1000);
+update();
 
-// 🎁 مفاجأة
-function surprise() {
-  alert("بحبك جدًا ❤️ كل سنة وانتي معايا");
+
+// ⏰ ساعة
+function liveClock(){
+  let now = new Date();
+  document.getElementById("liveClock").innerHTML =
+  "الوقت الآن: " + now.toLocaleTimeString();
 }
+setInterval(liveClock,1000);
+
+
+// 🔐 باسورد المفاجأة
+function checkPass(){
+  let password = document.getElementById("pass").value;
+
+  if(password === "6/4/2009"){
+    document.getElementById("surpriseBox").style.display = "block";
+  } else {
+    alert("غلط 😏 حاول تاني");
+  }
+}
+
+
+// 💖 قلوب
+function createHeart(){
+  let heart = document.createElement("div");
+  heart.className = "heart";
+  heart.innerHTML = "❤️";
+  heart.style.left = Math.random()*100 + "vw";
+  heart.style.fontSize = (10 + Math.random()*25) + "px";
+  document.body.appendChild(heart);
+
+  setTimeout(()=>{heart.remove();},5000);
+}
+setInterval(createHeart,250);
 
 </script>
 
