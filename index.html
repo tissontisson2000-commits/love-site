@@ -2,18 +2,20 @@
 <html lang="ar">
 <head>
 <meta charset="UTF-8">
-<title>💖 Love Surprise</title>
+<title>💖 Love Gift</title>
 
 <style>
 body{
 margin:0;
 font-family:Arial;
-overflow:hidden;
-text-align:center;
 color:white;
-background:linear-gradient(-45deg,#ff4e50,#f9d423,#ff6a88,#ff99ac);
+text-align:center;
+overflow:hidden;
+
+/* 🌌 خلفية رايقة جدًا */
+background: linear-gradient(135deg, #0f2027, #203a43, #2c5364);
 background-size:400% 400%;
-animation:bg 10s ease infinite;
+animation:bg 12s ease infinite;
 }
 
 @keyframes bg{
@@ -22,10 +24,9 @@ animation:bg 10s ease infinite;
 100%{background-position:0% 50%}
 }
 
-#login,#main{
-position:absolute;
-width:100%;
-height:100%;
+/* 🌙 شاشة الدخول */
+#login{
+height:100vh;
 display:flex;
 flex-direction:column;
 justify-content:center;
@@ -36,15 +37,21 @@ input{
 padding:10px;
 border:none;
 border-radius:10px;
-margin:5px;
+outline:none;
 }
 
 button{
 padding:10px 20px;
+margin-top:10px;
 border:none;
 border-radius:10px;
 cursor:pointer;
-margin-top:10px;
+}
+
+/* 💞 الصفحة الرئيسية */
+#main{
+display:none;
+padding-top:30px;
 }
 
 #counter{
@@ -54,14 +61,17 @@ margin-top:20px;
 
 #msg{
 margin-top:20px;
-font-size:18px;
 white-space:pre-wrap;
+font-size:18px;
 max-width:90%;
+margin-left:auto;
+margin-right:auto;
 }
 
+/* ❤️ قلوب */
 .heart{
 position:absolute;
-color:red;
+color:pink;
 animation:fall 5s linear infinite;
 }
 
@@ -70,10 +80,12 @@ animation:fall 5s linear infinite;
 100%{transform:translateY(100vh)}
 }
 
+/* 🎁 مفاجأة */
 #surprise{
 display:none;
 margin-top:20px;
 font-size:18px;
+color:#ffb6c1;
 }
 </style>
 </head>
@@ -84,24 +96,26 @@ font-size:18px;
 <div id="login">
 <h2>💖 Enter Password</h2>
 <input type="password" id="pass" placeholder="password">
-<button onclick="check()">Open</button>
+<button onclick="check()">دخول</button>
 </div>
 
 <!-- 💞 MAIN -->
-<div id="main" style="display:none;">
+<div id="main">
 
 <h1>💖 Happy Love</h1>
 
 <div id="counter"></div>
 
-<button onclick="typeMsg()">💌 Show Message</button>
+<button onclick="typeMsg()">💌 الرسالة</button>
 
 <div id="msg"></div>
 
-<button onclick="surprise()">🎁 Surprise</button>
+<button onclick="surprise()">🎁 مفاجأة</button>
 
-<div id="surprise">💖 بحبك اوي اوي اوي اوي اوي اوي اوي اوي 💖<br>
-ربنا يخليكي ليا يا روح قلبي 💍💞💎</div>
+<div id="surprise">
+💖 بحبك اوي اوي اوي اوي اوي اوي اوي اوي 💖<br>
+ربنا يخليكي ليا يا روح قلبي 💍💞💎
+</div>
 
 <audio autoplay loop>
 <source src="music.mp3">
@@ -111,9 +125,9 @@ font-size:18px;
 
 <script>
 
-let start=new Date("2025-01-23");
+let start = new Date("2025-01-23");
 
-// ⏳ counter
+/* ⏳ العداد */
 setInterval(()=>{
 let now=new Date();
 let diff=now-start;
@@ -127,22 +141,22 @@ document.getElementById("counter").innerHTML=
 days+" يوم ❤️ "+hours+" ساعة ⏰ "+mins+" دقيقة "+sec+" ثانية";
 },1000);
 
-// 🔐 password
+/* 🔐 الباسورد */
 function check(){
 let p=document.getElementById("pass").value;
 
 if(p==="6/4/2009"){
 document.getElementById("login").style.display="none";
-document.getElementById("main").style.display="flex";
+document.getElementById("main").style.display="block";
 }
 else{
-alert("غلط 😏");
+alert("غلط 😏 حاول تاني");
 }
 }
 
-// 💌 type message
+/* 💌 رسالة حرف حرف */
 function typeMsg(){
-let text="كل سنه وانتي طيبه يروح قلبي ❤️\nوعقبال مليون سنه وانتي معايا 💞\nربنا يديلك طولة العمر ويجعل يومي قبل يومك 💍";
+let text="كل سنه وانتي طيبه يروح قلبي ❤️\nعقبال مليون سنه سعيده وانتي معايا 💞\nربنا يديلك طولة العمر ويجعل يومي قبل يومك 💍";
 let i=0;
 document.getElementById("msg").innerHTML="";
 
@@ -153,11 +167,11 @@ if(i>=text.length)clearInterval(x);
 },70);
 }
 
-// 🎁 surprise
+/* 🎁 مفاجأة */
 function surprise(){
 document.getElementById("surprise").style.display="block";
 
-for(let i=0;i<50;i++){
+for(let i=0;i<60;i++){
 let h=document.createElement("div");
 h.classList.add("heart");
 h.innerHTML="❤️";
@@ -167,7 +181,7 @@ setTimeout(()=>h.remove(),5000);
 }
 }
 
-// ❤️ floating hearts always
+/* ❤️ قلوب مستمرة */
 setInterval(()=>{
 let h=document.createElement("div");
 h.classList.add("heart");
