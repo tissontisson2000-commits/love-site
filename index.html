@@ -2,194 +2,147 @@
 <html lang="ar">
 <head>
 <meta charset="UTF-8">
-<title>💖 Love Gift</title>
-
+<title>Gift Website</title>
 <style>
 body{
 margin:0;
 font-family:Arial;
+direction:rtl;
+background:linear-gradient(135deg,#0f0c29,#302b63,#24243e);
 color:white;
-text-align:center;
-overflow:hidden;
-
-/* 🌌 خلفية رايقة جدًا */
-background: linear-gradient(135deg, #0f2027, #203a43, #2c5364);
-background-size:400% 400%;
-animation:bg 12s ease infinite;
+overflow-x:hidden;
 }
 
-@keyframes bg{
-0%{background-position:0% 50%}
-50%{background-position:100% 50%}
-100%{background-position:0% 50%}
-}
+.page{display:none;}
+.active{display:block;}
 
-/* 🌙 شاشة الدخول */
-#login{
-height:100vh;
+.center{
 display:flex;
-flex-direction:column;
 justify-content:center;
 align-items:center;
+height:100vh;
+flex-direction:column;
 }
 
 input{
 padding:10px;
-border:none;
 border-radius:10px;
-outline:none;
+border:none;
+margin:5px;
+width:200px;
+text-align:center;
 }
 
 button{
 padding:10px 20px;
-margin-top:10px;
 border:none;
 border-radius:10px;
+background:#ff4d6d;
+color:white;
 cursor:pointer;
 }
 
-/* 💞 الصفحة الرئيسية */
-#main{
-display:none;
-padding-top:30px;
+.hearts::before{
+content:"❤ ❤ ❤ ❤ ❤ ❤ ❤";
+position:fixed;
+width:100%;
+animation:float 6s linear infinite;
+opacity:0.2;
+font-size:30px;
 }
 
-#counter{
+@keyframes float{
+0%{transform:translateY(100vh);}
+100%{transform:translateY(-10vh);}
+}
+
+.box{
+text-align:center;
+padding:20px;
+}
+
+img{
+width:200px;
+border-radius:20px;
+margin-top:10px;
+}
+
+.count{
 font-size:20px;
-margin-top:20px;
+margin-top:10px;
 }
 
-#msg{
-margin-top:20px;
-white-space:pre-wrap;
-font-size:18px;
-max-width:90%;
-margin-left:auto;
-margin-right:auto;
-}
-
-/* ❤️ قلوب */
-.heart{
-position:absolute;
-color:pink;
-animation:fall 5s linear infinite;
-}
-
-@keyframes fall{
-0%{transform:translateY(-50px)}
-100%{transform:translateY(100vh)}
-}
-
-/* 🎁 مفاجأة */
-#surprise{
-display:none;
-margin-top:20px;
-font-size:18px;
-color:#ffb6c1;
-}
 </style>
 </head>
 
 <body>
 
-<!-- 🔐 LOGIN -->
-<div id="login">
-<h2>💖 Enter Password</h2>
-<input type="password" id="pass" placeholder="password">
+<!-- LOGIN PAGE -->
+<div id="login" class="page active center">
+<h2>ادخل الباسورد ❤️</h2>
+<input type="password" id="pass" placeholder="Password">
 <button onclick="check()">دخول</button>
+<p id="err"></p>
 </div>
 
-<!-- 💞 MAIN -->
-<div id="main">
+<!-- MAIN PAGE -->
+<div id="main" class="page hearts">
 
-<h1>💖 Happy Love</h1>
+<div class="box">
+<h1>❤️ موقعنا الخاص ❤️</h1>
 
-<div id="counter"></div>
+<!-- الصورة (مدمجة SVG) -->
+<img src="data:image/svg+xml;utf8,
+<svg xmlns='http://www.w3.org/2000/svg' width='300' height='300'>
+<rect width='100%25' height='100%25' fill='%23ff4d6d'/>
+<text x='50%25' y='50%25' font-size='20' text-anchor='middle' fill='white'>Your Photo Here</text>
+</svg>">
 
-<button onclick="typeMsg()">💌 الرسالة</button>
+<h2>من 23/1/2025 ❤️</h2>
+<div class="count" id="counter"></div>
 
-<div id="msg"></div>
+<!-- يوتيوب اغنية Perfect -->
+<iframe width="0" height="0"
+src="https://www.youtube.com/embed/2Vv-BfVoq4g?autoplay=1"
+allow="autoplay">
+</iframe>
 
-<button onclick="surprise()">🎁 مفاجأة</button>
-
-<div id="surprise">
-💖 بحبك اوي اوي اوي اوي اوي اوي اوي اوي 💖<br>
-ربنا يخليكي ليا يا روح قلبي 💍💞💎
 </div>
-
-<audio autoplay loop>
-<source src="music.mp3">
-</audio>
 
 </div>
 
 <script>
 
-let start = new Date("2025-01-23");
-
-/* ⏳ العداد */
-setInterval(()=>{
-let now=new Date();
-let diff=now-start;
-
-let days=Math.floor(diff/(1000*60*60*24));
-let hours=Math.floor(diff/(1000*60*60))%24;
-let mins=Math.floor(diff/(1000*60))%60;
-let sec=Math.floor(diff/1000)%60;
-
-document.getElementById("counter").innerHTML=
-days+" يوم ❤️ "+hours+" ساعة ⏰ "+mins+" دقيقة "+sec+" ثانية";
-},1000);
-
-/* 🔐 الباسورد */
+// password
 function check(){
 let p=document.getElementById("pass").value;
-
 if(p==="6/4/2009"){
-document.getElementById("login").style.display="none";
-document.getElementById("main").style.display="block";
-}
-else{
-alert("غلط 😏 حاول تاني");
-}
-}
-
-/* 💌 رسالة حرف حرف */
-function typeMsg(){
-let text="كل سنه وانتي طيبه يروح قلبي ❤️\nعقبال مليون سنه سعيده وانتي معايا 💞\nربنا يديلك طولة العمر ويجعل يومي قبل يومك 💍";
-let i=0;
-document.getElementById("msg").innerHTML="";
-
-let x=setInterval(()=>{
-document.getElementById("msg").innerHTML+=text[i];
-i++;
-if(i>=text.length)clearInterval(x);
-},70);
-}
-
-/* 🎁 مفاجأة */
-function surprise(){
-document.getElementById("surprise").style.display="block";
-
-for(let i=0;i<60;i++){
-let h=document.createElement("div");
-h.classList.add("heart");
-h.innerHTML="❤️";
-h.style.left=Math.random()*100+"vw";
-document.body.appendChild(h);
-setTimeout(()=>h.remove(),5000);
+document.getElementById("login").classList.remove("active");
+document.getElementById("main").classList.add("active");
+startCounter();
+}else{
+document.getElementById("err").innerHTML="غلط في الباسورد!";
 }
 }
 
-/* ❤️ قلوب مستمرة */
+// countdown live
+function startCounter(){
+let start=new Date("2025-01-23").getTime();
+
 setInterval(()=>{
-let h=document.createElement("div");
-h.classList.add("heart");
-h.innerHTML="💖";
-h.style.left=Math.random()*100+"vw";
-document.body.appendChild(h);
-setTimeout(()=>h.remove(),5000);
-},300);
+let now=new Date().getTime();
+let diff=now-start;
+
+let d=Math.floor(diff/(1000*60*60*24));
+let h=Math.floor(diff/(1000*60*60))%24;
+let m=Math.floor(diff/(1000*60))%60;
+let s=Math.floor(diff/1000)%60;
+
+document.getElementById("counter").innerHTML=
+d+" يوم "+h+" ساعة "+m+" دقيقة "+s+" ثانية ❤️";
+
+},1000);
+}
 
 </script>
 
